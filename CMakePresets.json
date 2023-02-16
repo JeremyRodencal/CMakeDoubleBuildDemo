@@ -1,0 +1,47 @@
+{
+    "version": 3,
+    "configurePresets": [
+        {
+            "name": "arm-none-eabi",
+            "displayName": "arm-none-eabi toolchain build",
+            "description": "Compile for arm-none-eabi",
+            "binaryDir": "${sourceDir}/build/${presetName}",
+            "toolchainFile": "arm-none-eabi.cmake",
+            "generator": "Ninja Multi-Config",
+            "cacheVariables": {
+                "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+                "CMAKE_CONFIGURATION_TYPES": "Debug;Release",
+                "BAREMETAL_ARM_TOOLCHAIN_PATH": "$env{GCC_ARM_NONE_EABI_9_2019_Q4_MAJOR}"
+            }
+        },
+        {
+            "name": "Mingw64",
+            "displayName": "Mingw64 PC app configuration",
+            "description": "Builds compatible targets for the host system",
+            "binaryDir": "${sourceDir}/build/${presetName}",
+            "toolchainFile": "mingw64.cmake",
+            "generator": "Ninja Multi-Config",
+            "cacheVariables": {
+                "COMPILER_PATH": "$env{MINGW_8_1_0_GCC}"
+            }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "ARM Debug",
+            "description": "Debug Build",
+            "displayName": "Debug",
+            "configurePreset": "arm-none-eabi",
+            "jobs": 1,
+            "configuration": "Debug"
+        },
+        {
+            "name": "ARM Release",
+            "description": "Release Build",
+            "displayName": "Release",
+            "configurePreset": "arm-none-eabi",
+            "jobs": 1,
+            "configuration": "Release"
+        }
+    ]
+}
